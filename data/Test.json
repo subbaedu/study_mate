@@ -1,0 +1,21 @@
+{
+  "name": "Test",
+  "cards": [
+    {
+      "term": "Matematika",
+      "definition": "Szamtan"
+    },
+    {
+      "term": "Gazdasag",
+      "definition": "Eroforrastan"
+    },
+    {
+      "term": "Termeszet",
+      "definition": "Biologia-tan"
+    },
+    {
+      "term": "Gaborjaras",
+      "definition": "Nepmuveszet"
+    }
+  ]
+}
