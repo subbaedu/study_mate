@@ -1,14 +1,14 @@
 ### Group C, Project name: Study Mate
 
-# This Streamlit application allows users to:
-# 1) Create and save flashcard sets (term–definition pairs)
-# 2) Load existing sets from disk (JSON files)
-# 3) Practice the flashcards via a multiple-choice quiz
+# The Study Mate application with Streamlit allows its users to:
+# 1) Make new flashcard sets and save them (term–definition pairs)
+# 2) Load the existing sets from disk (JSON files)
+# 3) Practice flashcards with a multiple-choice quiz
 
-## Packages
-# streamlit : web interface
+## Packages we used
+# streamlit : for the UI
 # json      : persistent storage of flashcard sets
-# random    : randomization in quiz questions
+# random    : randomisation of quiz questions
 # pathlib  : platform-independent file handling
 
 import streamlit as st
@@ -16,18 +16,14 @@ import json
 import random
 from pathlib import Path
 
-## Setting data storage
-# All flashcard sets are stored as JSON files
-# inside the local "data/" directory
+## This sets the data storage
+# All flashcard sets are then stored as JSON filesn in the "data/" directory
 
 DATA_DIR = Path("data")
-DATA_DIR.mkdir(exist_ok=True)  # creating data folder if it doesn't exist
+DATA_DIR.mkdir(exist_ok=True)  # creats data folder if it doesn't exist yet
 
 ## Basic controls
-# These helper functions handle:
-# - listing available sets
-# - loading and saving sets
-# - modifying cards inside a set
+# These helper functions handle: listing available sets, loading and saving sets, modifying cards inside a set
 
 def list_sets():
     """Return a list of set names (without .json)."""
@@ -83,8 +79,8 @@ def generate_question(cards):
     # Need 3 wrong options to form a 4-choice question
     if len(wrong_def_pool) < 3:
         st.warning(
-            "Not enough unique wrong definitions to create 4 options. "
-            "Add more cards with different definitions."
+            "Not enough wrong definitions to create 4 options. "
+            "Add more cards with different definitions to start."
         )
         st.stop()
 
@@ -95,10 +91,8 @@ def generate_question(cards):
     return term, correct_def, options
 
 
-## Creating Streamlit surface
-# The UI logic starts here.
-# Streamlit re-runs this script top-to-bottom
-# every time the user interacts with the page.
+##### Creating Streamlit surface (The UI part)
+## Streamlit re-runs this script down every time the user interacts with the page.
 
 # Landing page title
 st.title("Create or load your flashcard set!")
@@ -218,7 +212,7 @@ if st.session_state.mode == "Edit":
                     st.write(card["definition"])
 
             with col2:
-                if st.button("❌ Delete", key=f"delete_{i}"):
+                if st.button("Delete", key=f"delete_{i}"):
                     delete_card(set_data, i)
                     save_set(set_data)
                     st.success("Card deleted!")
@@ -288,10 +282,10 @@ else:
 
         if choice == st.session_state.q_correct_def:
             st.session_state.score += 1
-            st.session_state.feedback = "✅ Correct!"
+            st.session_state.feedback = "That's correct! :)"
         else:
             st.session_state.feedback = (
-                "❌ Wrong.\n\n"
+                "Wrong.\n\n"
                 f"**Correct answer:** {st.session_state.q_correct_def}"
             )
 
